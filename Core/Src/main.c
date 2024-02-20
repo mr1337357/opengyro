@@ -80,7 +80,7 @@ int __io_putchar(int ch)
 
 void steering_cb(int pin)
 {
-	//printf("pin %d\n",pin);
+	printf("pin %d\n",pin);
 }
 
 void hello_cb(task_arg arg)
@@ -126,13 +126,13 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   task next_task;
-  volatile int delay;
   gpio_init();
   gpio_dir(LED_PIN,1);
 
   gpio_dir(MOTOR_1,1);
-  gpio_interrupt(THROTTLE,steering_cb);
   gpio_interrupt(STEERING,steering_cb);
+  gpio_interrupt(THROTTLE,steering_cb);
+  //gpio_interrupt(GAIN,steering_cb);
   HAL_TIM_Base_Start(&htim2);
   HAL_TIM_Base_Start(&htim3);
   HAL_TIM_Base_Start(&htim4);
@@ -152,7 +152,7 @@ int main(void)
 	else
 	{
 		gpio_write(MOTOR_1,gpio_read(STEERING));
-		gpio_write(LED_PIN,gpio_read(STEERING));
+		gpio_write(LED_PIN,!gpio_read(STEERING));
 		//HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
 		//__WFI();
 	}
@@ -468,21 +468,10 @@ static void MX_USART1_UART_Init(void)
   */
 static void MX_GPIO_Init(void)
 {
-  GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
-
-  /*Configure GPIO pin : PA0 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /* EXTI interrupt init*/
-  HAL_NVIC_SetPriority(EXTI0_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 
 }
 

@@ -38,4 +38,5 @@ int queue_add(queue *q,void *value,uint16_t size)
 
 
 	__set_PRIMASK(primask);
+	return 1;
 }

@@ -47,38 +47,37 @@ static const int irq_nums[NUM_PINS] =
 {
 		0,
 		0,
-		EXTI0_IRQn,
-		EXTI1_IRQn,
-		EXTI15_10_IRQn,
+		GPIO_PIN_0,
+		GPIO_PIN_1,
+		GPIO_PIN_10,
 		0,
 };
 
 void test_gpio_task(task_arg pin)
 {
 	int val = gpio_read(pin.argi);
-	printf("pin interrupt %ld %ld\n",pin.argi,val);
+	printf("pin interrupt %ld %d\n",pin.argi,val);
 }
 
 void EXTI0_IRQHandler(void)
 {
-  /* USER CODE BEGIN EXTI0_IRQn 0 */
 
-  /* USER CODE END EXTI0_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
-  /* USER CODE BEGIN EXTI0_IRQn 1 */
 
-  /* USER CODE END EXTI0_IRQn 1 */
 }
 
 void EXTI1_IRQHandler(void)
 {
-  /* USER CODE BEGIN EXTI0_IRQn 0 */
 
-  /* USER CODE END EXTI0_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_1);
-  /* USER CODE BEGIN EXTI0_IRQn 1 */
 
-  /* USER CODE END EXTI0_IRQn 1 */
+}
+
+void EXTI15_10_IRQHandler(void)
+{
+
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_10); //requires update if pins change. figure out how to rework.
+
 }
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
