@@ -1,3 +1,0 @@
-../Core/Src/sched.c:25:6:sched_init	4	static
-../Core/Src/sched.c:31:5:sched_add_task	16	static
-../Core/Src/sched.c:43:5:sched_get_task	32	static,ignoring_inline_asm

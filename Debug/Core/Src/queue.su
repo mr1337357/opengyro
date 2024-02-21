@@ -1,2 +1,0 @@
-../Core/Src/queue.c:20:6:queue_init	24	static
-../Core/Src/queue.c:32:5:queue_add	40	static,ignoring_inline_asm
