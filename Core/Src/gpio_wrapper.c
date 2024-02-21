@@ -38,18 +38,18 @@ static const int gpio2hal_map[NUM_PINS] =
 {
 		0,
 		0, //GYRO_EXTI
-		1, //STEERING
-		2, //THROTTLE
-		3, //GAIN
+		GPIO_PIN_0, //STEERING
+		GPIO_PIN_1, //THROTTLE
+		GPIO_PIN_10, //GAIN
 };
 
 static const int irq_nums[NUM_PINS] =
 {
 		0,
 		0,
-		GPIO_PIN_0,
-		GPIO_PIN_1,
-		GPIO_PIN_10,
+		EXTI0_IRQn,
+		EXTI1_IRQn,
+		EXTI15_10_IRQn,
 		0,
 };
 
@@ -76,7 +76,7 @@ void EXTI1_IRQHandler(void)
 void EXTI15_10_IRQHandler(void)
 {
 
-  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_10); //requires update if pins change. figure out how to rework.
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_11); //requires update if pins change. figure out how to rework.
 
 }
 

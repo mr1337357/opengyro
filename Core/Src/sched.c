@@ -43,7 +43,7 @@ int sched_add_task(task *t)
 int sched_get_task(task *t)
 {
 	uint32_t primask;
-	if(sched.start+1 == sched.end)
+	if(((sched.start+1)&(QUEUE_SIZE-1)) == sched.end)
 	{
 		return 0;
 	}

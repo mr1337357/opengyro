@@ -1,0 +1,2 @@
+../Core/Src/queue.c:20:6:queue_init	2
+../Core/Src/queue.c:32:5:queue_add	1
