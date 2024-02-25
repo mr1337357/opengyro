@@ -82,7 +82,6 @@ int __io_putchar(int ch)
   return ch;
 }
 
-
 void read_pwm(task_arg arg)
 {
 	int width = pwmin_width(0);
@@ -138,9 +137,11 @@ int main(void)
   HAL_TIM_Base_Start(&htim3);
   HAL_TIM_Base_Start(&htim4);
   HAL_TIM_Base_MspInit(&htim1);
+  delay_init();
   int steer_pwm = pwmin_init(STEERING);
   int throttle_pwm = pwmin_init(THROTTLE);
   int gain_pwm = pwmin_init(GAIN);
+  printf("start\n");
 
   /* USER CODE END 2 */
 
@@ -160,7 +161,7 @@ int main(void)
 	{
 		//HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
 		gpio_write(LED_PIN,0);
-		//__WFI();
+		__WFI();
 		gpio_write(LED_PIN,1);
 	}
 
@@ -553,6 +554,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     	t.func = read_pwm;
     	sched_add_task(&t);
     }
+    delay_update(10);
   }
   else
   {
